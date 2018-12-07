@@ -1,0 +1,17 @@
+.div{
+    overflow:scroll; 
+    height:470px;
+    width: 410px;
+    
+}
+.id{
+    margin:0 30px 0 0;
+    padding:0 50px 0 0;
+}
+
+@media (max-width: 880px) {
+
+	.div{
+		padding:0 50px 0 0;
+	}
+}

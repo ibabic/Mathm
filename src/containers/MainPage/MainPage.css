@@ -1,0 +1,24 @@
+
+.left {
+  
+  float: left;
+  width: 70%;
+}
+.right {
+  
+  float: left;
+  width: 30%;
+  border: black;
+  
+}
+
+@media (max-width: 880px) {
+
+	 .left,
+	 .right{
+		display: block;
+		width: 100%;
+		margin-bottom: 40px;
+		text-align: center;
+	}
+}

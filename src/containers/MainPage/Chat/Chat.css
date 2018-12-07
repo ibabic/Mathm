@@ -1,0 +1,9 @@
+.container {
+    display: block;
+    border-color: black;
+    width: 700px;
+    height: 100px;
+}
+.main {
+    border-color: black;
+}

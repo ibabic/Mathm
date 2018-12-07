@@ -1,0 +1,43 @@
+.App {
+    text-align: center;
+  }
+  
+  
+  .Appintro {
+    font-size: large;
+    max-width: 800px;
+    margin: auto;
+  }
+  
+  /* @keyframes App-logo-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  } */
+  
+  .appcontainer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 60px;
+  }
+  
+  .itemcontainer {
+    width: 40%;
+  }
+  
+  .cardcontainer {
+    margin-top: 80px;
+  }
+  
+  .item {
+    padding: 10px;
+    border: 1px solid grey;
+    margin-bottom: 20px;
+  }
+  
+  .target {
+    width: 40%;
+    padding: 10px;
+    max-height: 20px;
+    border: 1px solid grey;
+  }
+  
