@@ -10,6 +10,7 @@
 /build
 
 /src/hoc/Auxx/Aux.js
+package-lock.json
 
 # misc
 .DS_Store

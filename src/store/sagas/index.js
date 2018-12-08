@@ -8,4 +8,4 @@ const handleNewMessage = function* handleNewMessage(params) {
     })
   }
   
-  export default handleNewMessage 
+  export default handleNewMessage;

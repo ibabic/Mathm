@@ -3,13 +3,13 @@ import * as firebase  from 'firebase';
 import * as actionTypes from './actionTypes';
 import { explode } from '../../index';
 
-var config = {
-    databaseURL: "https://mathmind-b6baf.firebaseio.com/"
-}
+// var config = {
+//     databaseURL: "https://mathmind-b6baf.firebaseio.com/"
+// }
 
-firebase.initializeApp(config);
-const db = firebase.database();
-const dbRef =db.ref().child('players');
+// firebase.initializeApp(config);
+// const db = firebase.database();
+// const dbRef =db.ref().child('players');
 
 export const authStart = () => {
     return {
@@ -71,26 +71,15 @@ export const auth = (email, password, level, username) => {
         username: username,
         returnSecureToken: true
     };
-      axios.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyAxw34Uhl23NbykW6geaqbAiirQHSkkc14', authData)
-          .then(response => {
-            localStorage.setItem('token', response.data.idToken);
-            localStorage.setItem('userId', response.data.localId);
-            dispatch(authSuccess(response.data.idToken, response.data.localId));
-            const dbRef =db.ref().child(username);
-            dbRef.set({
-                email: email,
-                level: level,
-                username: username,
-                points: 0,
-                userId: response.data.localId
-            })
-           .then(response => {
-            console.log(response);})
-            .catch(err => {
-                dispatch(authFail(err.response.data.error));
-            }); 
-          }) 
-          .catch(err => {
+      //axios.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyAxw34Uhl23NbykW6geaqbAiirQHSkkc14', authData)
+        axios.post('http://localhost:3000/users', authData)
+      .then(response => {
+             console.log(response);
+             localStorage.setItem('token', response.headers['x-auth']);
+             localStorage.setItem('userId', response.data._id);
+            // console.log(localStorage);
+             dispatch(authSuccess(response.headers['x-auth'], response.data._id));
+      }).catch(err => {
               dispatch(authFail(err.response.data.error));
           }); 
         };
@@ -104,20 +93,19 @@ export const login = (email, password) => {
         password: password,
         returnSecureToken: true
     };
-      axios.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyAxw34Uhl23NbykW6geaqbAiirQHSkkc14', authData)
-          .then(response => {
-            localStorage.setItem('token', response.data.idToken);
-            localStorage.setItem('userId', response.data.localId);
-            dispatch(authSuccess(response.data.idToken, response.data.localId));
-            const dbRef =db.ref().orderByChild("userId").equalTo(response.data.localId).on('value', function (snapshot) {
-                    dispatch(userData(snapshot.val()));
-                    explode(snapshot.val());})})
-          .catch(err => {
-              dispatch(authFail(err.response.data.error));
+     // axios.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyAxw34Uhl23NbykW6geaqbAiirQHSkkc14', authData)
+     axios.post('http://localhost:3000/users/login', authData)
+     .then(response => {
+        console.log(response);
+        localStorage.setItem('token', response.headers['x-auth']);
+        localStorage.setItem('userId', response.data._id);
+        console.log(localStorage);
+        dispatch(authSuccess(response.headers['x-auth'], response.data._id));
+     }).catch(err => {
+         console.log(err);
+              dispatch(authFail(err));
           }); 
-          
     };
-    
 };
 
 export const authCheckState = () => {
@@ -128,9 +116,17 @@ export const authCheckState = () => {
          else {
                 const userId = localStorage.getItem('userId');
                 dispatch(authSuccess(token, userId));
-                const dbRef =db.ref().orderByChild("userId").equalTo(userId).on('value', function (snapshot) {
-                    dispatch(userData(snapshot.val()));
-                    explode(snapshot.val());})
+                axios.get/*post*/('http://localhost:3000/users/me', token)
+                    .then(response => {
+                        console.log(response);
+                        dispatch(userData(response));
+                    }).catch(err => {
+                        console.log(err);
+                        dispatch(authFail(err));
+                }); 
+                // const dbRef =db.ref().orderByChild("userId").equalTo(userId).on('value', function (snapshot) {
+                    // dispatch(userData(snapshot.val()));
+                    // explode(snapshot.val());})
             }   
     };
 };
