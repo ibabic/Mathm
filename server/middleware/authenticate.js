@@ -1,15 +1,19 @@
+const _ = require('lodash');
 var { User } = require('./../models/user');
 
 var authenticate = (req, res, next) => {
-  var token = req.header('x-auth');
+  console.log(req.body); 
   
-  User.findByToken(token).then((user) => {
+  var token = _.pick(req.body, ['token']);
+  console.log(token.token);
+  
+  User.findByToken(token.token).then((user) => {
     if (!user) {
       return Promise.reject();
     }
 
     req.user = user;
-    req.token = token;
+  //  req.token = token.token;
     next();
   }).catch((e) => {
     res.status(401).send();

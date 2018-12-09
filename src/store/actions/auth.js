@@ -116,11 +116,17 @@ export const authCheckState = () => {
          else {
                 const userId = localStorage.getItem('userId');
                 dispatch(authSuccess(token, userId));
-                axios.get/*post*/('http://localhost:3000/users/me', token)
+                const authData = {
+                    token: token,
+                    userId: userId
+                };
+                axios.post('http://localhost:3000/users/me', authData)
                     .then(response => {
                         console.log(response);
+                        console.log(localStorage);
                         dispatch(userData(response));
                     }).catch(err => {
+                        console.log(localStorage);
                         console.log(err);
                         dispatch(authFail(err));
                 }); 
