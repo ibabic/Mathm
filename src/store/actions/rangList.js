@@ -1,4 +1,4 @@
-import axios from '../../axios-players';
+import axios from 'axios';
 import * as actionTypes from './actionTypes';
 
 export const setRangList = ( players ) => {
@@ -16,7 +16,7 @@ export const fetchRangListsFailed = () => {
 
 export const rangList = () => {
     return dispatch => {
-        axios.get( '.json' )
+        axios.get( 'http://localhost:3000/users/rangList' )
             .then( response => {
                 console.log(response.data);
                dispatch(setRangList(response.data));

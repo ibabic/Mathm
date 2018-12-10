@@ -34,9 +34,7 @@ import {
       }
           let usrName = null;
       if ( arr ) {
-        usrName = arr.map( user => (
-              user.username
-          ) )}
+        usrName = arr[3]}
          // console.log(' inside navigationBar ', usrName);
       return (
         <div>

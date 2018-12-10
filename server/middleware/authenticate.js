@@ -2,10 +2,8 @@ const _ = require('lodash');
 var { User } = require('./../models/user');
 
 var authenticate = (req, res, next) => {
-  console.log(req.body); 
   
   var token = _.pick(req.body, ['token']);
-  console.log(token.token);
   
   User.findByToken(token.token).then((user) => {
     if (!user) {

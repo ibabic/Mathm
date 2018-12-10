@@ -17,11 +17,24 @@ var UserSchema = new mongoose.Schema({
             message: `{VALUE} is not valid email`
         }
     },
+    username: {
+      type: String,
+      require: true,
+      minlength: 4
+  },
     password: {
         type: String,
         require: true,
         minlength: 6
     },
+    points: {
+      type: Number,
+      default: 0
+  },
+  level: {
+    type: Number,
+    default: 1
+},
     tokens: [{
         access: {
             type: String,
@@ -38,7 +51,7 @@ UserSchema.methods.toJSON = function () {
     var user = this;
     var userObect = user.toObject();
 
-    return _.pick(userObect, ['_id', 'email']);
+    return _.pick(userObect, ['_id', 'email', 'points', 'username']);
 };
 
 UserSchema.methods.generateAuthToken = function () {

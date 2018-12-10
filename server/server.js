@@ -23,7 +23,6 @@ app.use(cors(corsOptions));
 
 
 app.post('/users', (req, res) => {
-    console.log(req.body);
   var body = _.pick(req.body, ['email', 'password','level', 'username']);
   var user = new User(body);
 
@@ -41,9 +40,7 @@ app.post('/users/me', authenticate, (req, res) => {
   });
 
 app.post('/users/login', (req, res) => {
-    console.log(req.body);
     var body = _.pick(req.body, ['email', 'password']);
-    console.log(body);
     User.findByCredentials(body.email, body.password).then((user) => {
         user.generateAuthToken().then((token) => {
             res.header('x-auth', token).send(user);
@@ -52,6 +49,15 @@ app.post('/users/login', (req, res) => {
         res.status(400).send();
     });
 })
+
+app.get('/users/rangList', function(req, res) {
+    User.find({}, function(err, users) {
+        res.send(users.reduce(function(userMap, item) {
+            userMap[item.id] = item;
+            return userMap;
+        }, {}));
+    });
+});
 
 app.delete('/users/me/token', authenticate, (req, res) => {
     req.user.removeToken(req.token).then(() => {

@@ -12,11 +12,14 @@ class RangList extends Component {
     }
     
     render(){
+        console.log(this.props.players);
         var arr = [];
         for (var key in this.props.players) {
              arr.push(this.props.players[key]);
         }
+        console.log(arr);
         arr.sort((a,b) => b.points - a.points);
+        console.log(arr[0]);
         let play = null;
         if ( arr ) {
             play = arr.map( player => (

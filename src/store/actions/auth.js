@@ -74,11 +74,10 @@ export const auth = (email, password, level, username) => {
       //axios.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyAxw34Uhl23NbykW6geaqbAiirQHSkkc14', authData)
         axios.post('http://localhost:3000/users', authData)
       .then(response => {
-             console.log(response);
              localStorage.setItem('token', response.headers['x-auth']);
              localStorage.setItem('userId', response.data._id);
-            // console.log(localStorage);
              dispatch(authSuccess(response.headers['x-auth'], response.data._id));
+             dispatch(userData(response.data));
       }).catch(err => {
               dispatch(authFail(err.response.data.error));
           }); 
@@ -96,13 +95,11 @@ export const login = (email, password) => {
      // axios.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyAxw34Uhl23NbykW6geaqbAiirQHSkkc14', authData)
      axios.post('http://localhost:3000/users/login', authData)
      .then(response => {
-        console.log(response);
         localStorage.setItem('token', response.headers['x-auth']);
         localStorage.setItem('userId', response.data._id);
-        console.log(localStorage);
         dispatch(authSuccess(response.headers['x-auth'], response.data._id));
+        dispatch(userData(response.data));
      }).catch(err => {
-         console.log(err);
               dispatch(authFail(err));
           }); 
     };
@@ -122,12 +119,8 @@ export const authCheckState = () => {
                 };
                 axios.post('http://localhost:3000/users/me', authData)
                     .then(response => {
-                        console.log(response);
-                        console.log(localStorage);
-                        dispatch(userData(response));
+                        dispatch(userData(response.data));
                     }).catch(err => {
-                        console.log(localStorage);
-                        console.log(err);
                         dispatch(authFail(err));
                 }); 
                 // const dbRef =db.ref().orderByChild("userId").equalTo(userId).on('value', function (snapshot) {

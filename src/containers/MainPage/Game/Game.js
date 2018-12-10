@@ -8,13 +8,14 @@ class Game extends Component {
         for (var key in this.props.user) {
              arr.push(this.props.user[key]);
         }
+        console.log(arr);
         let usr = null;
         if ( arr ) {
-            usr = arr.map( user => (
-                <form key={user.email}>
-                <p>Total points: {user.points}</p>
+            usr = 
+                <form >
+                <p>Total points: {arr[2]}</p>
                 </form>
-            ) )}
+            }
         return(
             <div>
                 {usr}
