@@ -20,7 +20,9 @@ var UserSchema = new mongoose.Schema({
     username: {
       type: String,
       require: true,
-      minlength: 4
+      minlength: 4,
+      trim: true,
+      unique: true
   },
     password: {
         type: String,

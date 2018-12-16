@@ -18,11 +18,11 @@ export const rangList = () => {
     return dispatch => {
         axios.get( 'http://localhost:3000/users/rangList' )
             .then( response => {
-                console.log(response.data);
+                //console.log(response.data);
                dispatch(setRangList(response.data));
             } )
             .catch( error => {
-                console.log(error.response.data.error);
+                //console.log(error.response.data.error);
                 dispatch(fetchRangListsFailed());
             } );
     };

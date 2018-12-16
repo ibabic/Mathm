@@ -77,8 +77,9 @@ goBack = (props) => {
 
   render() {
     let usFed = null;
-    
-    this.props.error ? usFed=<p >{this.props.error.message}</p> : usFed=null;
+    if(this.props.error){
+    console.log(this.props.error.message);}
+    this.props.error ? usFed=<p >Current password and email does not match</p> : usFed=null;
 
     let log =     
         (

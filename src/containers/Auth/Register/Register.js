@@ -99,15 +99,29 @@ class Register extends Component {
         this.props.history.goBack();
       }
 
+       search = (nameKey, myArray) =>{
+        for (let i=0; i < myArray.length; i++) {
+            if (myArray[i].username === nameKey) {
+                console.log(myArray.length);
+                return true;
+            }
+        }
+    }
+
   render() {
+        var arr = [];
+        for (var key in this.props.players) {
+             arr.push(this.props.players[key]);
+        }
     let usErr = null;
-    this.props.error ? usErr=<p >{this.props.error.message}</p> : usErr=null;
+    console.log(this.props.error);
+    this.props.error ? usErr=<p >This email already exists</p> : usErr=null;
     let usName = <Input value={this.state.elements.username.value} invalid onChange={(event) => this.inputChangedHandler(event, 'username')}/>;
-    this.state.elements.username.valid ? usName=<Input value={this.state.elements.username.value} valid onChange={(event) => this.inputChangedHandler(event, 'username')}/> : usName
+    this.state.elements.username.valid && (!this.search(this.state.elements.username.value, arr)) ? usName=<Input value={this.state.elements.username.value} valid onChange={(event) => this.inputChangedHandler(event, 'username')}/> : usName
     
     let usFed = null;
     if(this.state.elements.username.touched)
-    this.state.elements.username.valid ? usFed=<FormFeedback valid>Sweet! that name is available</FormFeedback> : usFed=<FormFeedback>Oh noes! that name is already taken</FormFeedback>
+    this.state.elements.username.valid && (!this.search(this.state.elements.username.value, arr)) ? usFed=<FormFeedback valid>Sweet! that name is available</FormFeedback> : usFed=<FormFeedback>Oh noes! that name is already taken</FormFeedback>
 
     let reg = (
         <Form>
@@ -169,7 +183,8 @@ const mapStateToProps = state => {
     return{
         loading: state.auth.loading,
         error: state.auth.error,
-        auth: state.auth.token
+        auth: state.auth.token,
+        players: state.rang.players
     };
 };
 
