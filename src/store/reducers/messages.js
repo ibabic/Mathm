@@ -4,6 +4,7 @@ const messages = (state = [], action) => {
   switch (action.type) {
     case types.ADD_MESSAGE:
     case types.MESSAGE_RECEIVED:
+    console.log(action.message);
       return state.concat([
         {
           message: action.message,

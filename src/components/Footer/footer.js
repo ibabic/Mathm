@@ -58,10 +58,7 @@ const footer = (props) => (
 
     </div>
 
-</footer>
-
-
-	
+</footer>	
 );
 
 export default footer;

@@ -114,7 +114,6 @@ class Register extends Component {
              arr.push(this.props.players[key]);
         }
     let usErr = null;
-    console.log(this.props.error);
     this.props.error ? usErr=<p >This email already exists</p> : usErr=null;
     let usName = <Input value={this.state.elements.username.value} invalid onChange={(event) => this.inputChangedHandler(event, 'username')}/>;
     this.state.elements.username.valid && (!this.search(this.state.elements.username.value, arr)) ? usName=<Input value={this.state.elements.username.value} valid onChange={(event) => this.inputChangedHandler(event, 'username')}/> : usName
@@ -133,7 +132,7 @@ class Register extends Component {
         <FormGroup>
         <Label for="exampleEmail">Email</Label>
         <Input value={this.state.elements.email.value} 
-                className={this.state.elements.email.valid ? "border-success" : "border-danger"} 
+                className={this.state.elements.email.valid && !this.props.error ? "border-success" : "border-danger"} 
                 type="email" name="email" id="exampleEmail" 
                 placeholder={this.state.elements.email.elementConfig.placeholder}
                 onChange={(event) => this.inputChangedHandler(event, 'email')} />

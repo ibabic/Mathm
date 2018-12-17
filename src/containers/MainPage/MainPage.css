@@ -1,12 +1,20 @@
+.all{
+	display: grid;
+}
 
-.left {
-  
-  float: left;
-  width: 70%;
+.lefttop { 
+	width: 60%;
+	grid-column: auto;
+	grid-row: auto;
+}
+.leftbottom { 
+	width: 60%;
+  grid-column: auto;
+	grid-row: auto;
 }
 .right {
-  
-  float: left;
+	position: absolute;
+	right: 0px;
   width: 30%;
   border: black;
   

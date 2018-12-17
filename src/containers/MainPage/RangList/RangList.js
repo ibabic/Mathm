@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
-import Aux from '../../../hoc/Auxx/Aux';
+import Aux from '../../../hoc/Auxx/Auxx';
 import { Table } from 'reactstrap';
 import classes from './RangList.css';
 import Spinner from '../../../components/UI/Spinner/Spinner';

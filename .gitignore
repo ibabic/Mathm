@@ -9,7 +9,7 @@
 # production
 /build
 
-/src/hoc/Auxx/Aux.js
+
 package-lock.json
 
 # misc

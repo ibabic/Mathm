@@ -15,7 +15,6 @@ import authReducer from './store/reducers/auth';
 import rangListReducer from './store/reducers/rangList';
 import gameReducer from './store/reducers/game';
 import messagesReducer from './store/reducers/messages';
-import { setTimeout } from 'timers';
 const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
 
@@ -34,22 +33,21 @@ const store = createStore(rootReducer, composeEnhancers(
 
 
 export function explode(user){
-    var arr = [];
-    for (var key in user) {
-         arr.push(user[key]);
-    }
-    let username = null;
-    if ( arr ) {
-      username = arr.map( user => (
-            user.username
-        ) )}
-        console.log(username);
-
+    // console.log(user);
+    // var arr = [];
+    // for (var key in user) {
+    //      arr.push(user[key]);
+    // }
+     let username = null;
+    // if ( arr ) {
+    //   username = arr.map( user => (
+         username = user;
+    //     ) )}
    // const username = store.getState().game.username;
     const socket = setupSocket(store.dispatch, username);
     sagaMiddleware.run(handleNewMessage, { socket, username });
   }
- // setTimeout(explode, 3000);
+ 
 
 
 const app = (

@@ -68,8 +68,7 @@ export const auth = (email, password, level, username) => {
         email: email,
         password: password,
         level: level,
-        username: username,
-        returnSecureToken: true
+        username: username
     };
       //axios.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyAxw34Uhl23NbykW6geaqbAiirQHSkkc14', authData)
         axios.post('http://localhost:3000/users', authData)
@@ -78,8 +77,9 @@ export const auth = (email, password, level, username) => {
              localStorage.setItem('userId', response.data._id);
              dispatch(authSuccess(response.headers['x-auth'], response.data._id));
              dispatch(userData(response.data));
+             explode(response.data.username);
       }).catch(err => {
-              dispatch(authFail(err.response.data.error));
+              dispatch(authFail(err));
           }); 
         };
 };
@@ -89,8 +89,7 @@ export const login = (email, password) => {
       dispatch(authStart());
       const authData = {
         email: email,
-        password: password,
-        returnSecureToken: true
+        password: password
     };
      // axios.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyAxw34Uhl23NbykW6geaqbAiirQHSkkc14', authData)
      axios.post('http://localhost:3000/users/login', authData)
@@ -99,6 +98,7 @@ export const login = (email, password) => {
         localStorage.setItem('userId', response.data._id);
         dispatch(authSuccess(response.headers['x-auth'], response.data._id));
         dispatch(userData(response.data));
+        explode(response.data.username);
      }).catch(err => {
               dispatch(authFail(err));
           }); 
@@ -120,6 +120,7 @@ export const authCheckState = () => {
                 axios.post('http://localhost:3000/users/me', authData)
                     .then(response => {
                         dispatch(userData(response.data));
+                        explode(response.data.username);
                     }).catch(err => {
                         dispatch(authFail(err));
                 }); 

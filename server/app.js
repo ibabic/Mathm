@@ -1,5 +1,5 @@
 const WebSocket = require('ws');
-
+console.log('start');
 const wss = new WebSocket.Server({ port: 8989 });
 
 const users = []
@@ -16,7 +16,7 @@ wss.on('connection', (ws) => {
   let index = 0;
   ws.on('message', (message) => {
     const data = JSON.parse(message);
-    console.log(message)
+    console.log(message);
     switch (data.type) {
       case 'ADD_MESSAGE':
         broadcast({

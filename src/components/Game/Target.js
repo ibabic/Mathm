@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import update from 'immutability-helper';
 import Card from './Item';
 import { DropTarget } from 'react-dnd';
+import Formula from './Formula';
 
 class Container extends Component {
 
@@ -31,22 +32,15 @@ class Container extends Component {
 	moveCard(dragIndex, hoverIndex) {
 		const { cards } = this.state;		
 		const dragCard = cards[dragIndex];
-		const hoverCardText = cards[hoverIndex].text;
-		const dragCardText = cards[dragIndex].text.concat(hoverCardText);
-		console.log(hoverCardText.concat(dragCardText));
-		console.log(dragCardText);
-		dragCard.text = dragCardText
 		
 		this.setState(update(this.state, {
 			cards: {
 				$splice: [
-				//	[dragIndex, 1],
+					[dragIndex, 1],
 					[hoverIndex, 0, dragCard]
 				]
 			}
 		}));
-		this.removeCard(dragIndex);
-		this.removeCard(hoverIndex);
 	}
 
 	render() {
@@ -58,7 +52,7 @@ class Container extends Component {
 			height: "404px",
 			border: '1px dashed gray'
 		};
-
+	//	console.log(cards);
 		const backgroundColor = isActive ? 'lightgreen' : '#FFF';
 
 		return connectDropTarget(
