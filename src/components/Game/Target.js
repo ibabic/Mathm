@@ -3,6 +3,8 @@ import update from 'immutability-helper';
 import Card from './Item';
 import { DropTarget } from 'react-dnd';
 import Formula from './Formula';
+import { Z_PARTIAL_FLUSH } from 'zlib';
+const math = require('mathjs');
 
 class Container extends Component {
 
@@ -52,7 +54,40 @@ class Container extends Component {
 			height: "404px",
 			border: '1px dashed gray'
 		};
-	//	console.log(cards);
+		//var rez = this.props.Over ? res : null;
+		
+		var res = null;
+		console.log(cards);
+		if(cards.length !== 0){
+			res = math.eval(cards[0].value);
+			var cardsExOne = cards.slice().splice(1,cards.length -1);
+			console.log(cardsExOne);
+			cardsExOne.forEach(card => {
+					console.log(res);
+					switch(this.props.operation){
+						case "+" : return res = res + math.eval(card.value);
+						case "-" : return res = res - math.eval(card.value);
+						case "*" : return res = res * math.eval(card.value);
+						case "/" : return res = res / math.eval(card.value);
+					}
+				//	res = res + math.eval(card.value);
+				}); 
+		}
+		// cards.forEach(card => {
+		// 	res = math.eval(cards[0].value);
+		// 	console.log(res);
+		// 	switch(this.props.operation){
+		// 		case "+" : return res = res + math.eval(card.value);
+		// 		case "-" : return res = res - math.eval(card.value);
+		// 		case "*" : return res = res * math.eval(card.value);
+		// 		case "/" : return res = res / math.eval(card.value);
+		// 	}
+		// //	res = res + math.eval(card.value);
+		// 	console.log(res);
+		// 	console.log(Math.round( res * 10 ) / 10);
+		// }); 
+
+		
 		const backgroundColor = isActive ? 'lightgreen' : '#FFF';
 
 		return connectDropTarget(
@@ -67,8 +102,10 @@ class Container extends Component {
 							removeCard={this.removeCard.bind(this)}
 							moveCard={this.moveCard.bind(this)}
 							/>
+							
 					);
 				})}
+				<p>{res}</p>
 			</div>
 		);
   }

@@ -24,7 +24,7 @@ const footer = (props) => (
     <div className={classes.center}>
 
         <div>
-            <i class="fa fa-map-marker"></i>
+            <i className="fa fa-map-marker"></i>
             <p><span>Split 3</span> Split, Croatia</p>
         </div>
 
@@ -49,10 +49,10 @@ const footer = (props) => (
 
         <div className={classes.icons}>
 
-            <a href="http://www.facebook.com"><i class="fa fa-facebook"></i></a>
-            <a href="http://www.twitter.com"><i class="fa fa-twitter"></i></a>
-            <a href="http://www.linkedin.com"><i class="fa fa-linkedin"></i></a>
-            <a href="http://www.github.com"><i class="fa fa-github"></i></a>
+            <a href="http://www.facebook.com"><i className="fa fa-facebook"></i></a>
+            <a href="http://www.twitter.com"><i className="fa fa-twitter"></i></a>
+            <a href="http://www.linkedin.com"><i className="fa fa-linkedin"></i></a>
+            <a href="http://www.github.com"><i className="fa fa-github"></i></a>
 
         </div>
 

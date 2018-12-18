@@ -11,9 +11,9 @@ class Formula extends React.Component{
             <MathJax.Provider>
                 <div>
                     
-                    <MathJax.Node inline formula={'a = b'} />
+                    {/* <MathJax.Node inline formula={'a = b'} /> */}
                    
-                    <MathJax.Node formula={tex} />
+                    <MathJax.Node formula={this.props.tex} />
                 </div>
             </MathJax.Provider>
         );
