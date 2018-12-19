@@ -61,6 +61,17 @@ console.log(randomElements1rep);
         //     } );
     
 class App extends Component {
+	constructor(props) {
+		super(props);
+
+		//this.toggle = this.toggle.bind(this);
+		this.state = {
+			Over: false,
+			touched: true
+		};
+	}
+
+
 	render() {
 
 //console.log(math.eval('log(e)'));
@@ -91,32 +102,21 @@ class App extends Component {
 		const listFour = [
 			
 		];
-		//const Completionist = () => <span>Time up!</span>;
- 
-// Renderer callback with condition
+		
 	const renderer = ({ seconds, completed }) => {
-  if (completed) {
-    // Render a completed state
-    return <Countdown date={ Date.now() + 10000} renderer={renderer2} />;
-  } else {
 	var divStyle = {
 		color: 'black',
 		backgroundImage: 'lightgreen',
 	  };
-	// Render a countdown
 	if(seconds < 5)
-	{ console.log("sec <= 5");
+	{ 
 	  divStyle.color = 'red';
 	}
 	return <h1 style={divStyle}>{seconds}</h1>;
-  }
+  
 };
 
-const renderer2 = ({ seconds, completed }) => {
-	if (completed) {
-	  // Render a completed state
-	  return <Countdown date={ Date.now() + 10000} renderer={renderer}/>
-	} else {
+const renderer2 = ({ seconds }) => {
 	  // Render a countdown
 	  var divStyle = {
 		color: 'green',
@@ -124,16 +124,32 @@ const renderer2 = ({ seconds, completed }) => {
 	  };
 	  
 	  return <h4 style={divStyle}>Time is up!! New game for: {seconds}</h4>;
-	}
+	
 };
+		
 		return (
 			<div>
-				<Countdown date={ Date.now() + 10000} renderer={renderer}/>
+				{this.state.touched ? <Countdown date={ Date.now() + 10000} renderer={renderer}  onComplete={() => this.setState((this.state, {
+				Over: true,
+				touched: false 
+			}))}/> : null}
+			{!this.state.touched  ? <Countdown date={ Date.now() + 20000} renderer={renderer2} onComplete={() => this.setState((this.state, {
+				Over: false,
+				touched: true 
+			}))}/> : null}
 			<div style={{...style}}>
-				<Container id={1} list={listOne} Over={true} operation={"+"}/>
-				<Container id={2} list={listTwo} Over={true} operation={"-"}/>
-				<Container id={3} list={listThree} Over={true} operation={"*"}/>
-				<Container id={4} list={listFour}  Over={true} operation={"/"}/>
+			<div>
+			+<Container id={1} list={listOne} Over={this.state.Over} operation={"+"}/>
+			</div>
+			<div>
+			-<Container id={2} list={listTwo} Over={this.state.Over} operation={"-"}/>
+			</div>	
+			<div>
+			*<Container id={3} list={listThree} Over={this.state.Over} operation={"*"}/>
+			</div>
+			<div>
+			/<Container id={4} list={listFour}  Over={this.state.Over} operation={"/"}/>
+			</div>
 			</div>
 			</div>
 			

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import update from 'immutability-helper';
 import Card from './Item';
 import { DropTarget } from 'react-dnd';
-import Formula from './Formula';
 import { Z_PARTIAL_FLUSH } from 'zlib';
 const math = require('mathjs');
 
@@ -10,18 +9,22 @@ class Container extends Component {
 
 	constructor(props) {
 		super(props);		
-		this.state = { cards: props.list };
+		this.state = { cards: props.list, disable : false };
 	}
 
+
+
 	pushCard(card) {
+		if(!this.state.disable){
 		this.setState(update(this.state, {
 			cards: {
 				$push: [ card ]
 			}
-		}));
+		}));}
 	}
 
 	removeCard(index) {		
+		
 		this.setState(update(this.state, {
 			cards: {
 				$splice: [
@@ -45,6 +48,8 @@ class Container extends Component {
 		}));
 	}
 
+	
+
 	render() {
 		const { cards } = this.state;
 		const { canDrop, isOver, connectDropTarget } = this.props;
@@ -54,42 +59,31 @@ class Container extends Component {
 			height: "404px",
 			border: '1px dashed gray'
 		};
-		//var rez = this.props.Over ? res : null;
+		
 		
 		var res = null;
-		console.log(cards);
+		//console.log(cards);
 		if(cards.length !== 0){
 			res = math.eval(cards[0].value);
 			var cardsExOne = cards.slice().splice(1,cards.length -1);
-			console.log(cardsExOne);
+			//console.log(cardsExOne);
 			cardsExOne.forEach(card => {
-					console.log(res);
+					//console.log(res);
 					switch(this.props.operation){
 						case "+" : return res = res + math.eval(card.value);
 						case "-" : return res = res - math.eval(card.value);
 						case "*" : return res = res * math.eval(card.value);
 						case "/" : return res = res / math.eval(card.value);
 					}
-				//	res = res + math.eval(card.value);
 				}); 
 		}
-		// cards.forEach(card => {
-		// 	res = math.eval(cards[0].value);
-		// 	console.log(res);
-		// 	switch(this.props.operation){
-		// 		case "+" : return res = res + math.eval(card.value);
-		// 		case "-" : return res = res - math.eval(card.value);
-		// 		case "*" : return res = res * math.eval(card.value);
-		// 		case "/" : return res = res / math.eval(card.value);
-		// 	}
-		// //	res = res + math.eval(card.value);
-		// 	console.log(res);
-		// 	console.log(Math.round( res * 10 ) / 10);
-		// }); 
 
-		
-		const backgroundColor = isActive ? 'lightgreen' : '#FFF';
-
+		//const rez = this.props.Over ? res : null;
+		//const backgroundColor = isActive ? 'lightgreen' : '#FFF';
+		var backgroundColor = isActive && (cards.length < 5)  ? 'lightgreen' : '#FFF';
+		if(cards.length === 5){backgroundColor = 'blue', this.state.disable = true}
+		console.log(this.props.Over);
+		console.log(res);
 		return connectDropTarget(
 			<div style={{...style, backgroundColor}}>
 				{cards.map((card, i) => {
@@ -101,11 +95,12 @@ class Container extends Component {
 							card={card}														
 							removeCard={this.removeCard.bind(this)}
 							moveCard={this.moveCard.bind(this)}
+							disable={this.state.disable}
 							/>
 							
 					);
 				})}
-				<p>{res}</p>
+				<p>{this.props.Over ? res : null}</p>
 			</div>
 		);
   }
@@ -115,7 +110,7 @@ const cardTarget = {
 	drop(props, monitor, component ) {
 		const  {id}  = props;
 		const sourceObj = monitor.getItem();		
-		if ( id !== sourceObj.listId ) component.pushCard(sourceObj.card);
+		if ( id !== sourceObj.listId) component.pushCard(sourceObj.card);
 		return {
 			listId: id
 		};
