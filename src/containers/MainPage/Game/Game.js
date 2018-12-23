@@ -19,7 +19,6 @@ class Game extends Component {
         return(
             <div>
                 {usr}
-                <p>Game</p>
                 <App/>
             </div>
         );

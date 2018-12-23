@@ -16,14 +16,14 @@ const style = {
 class Card extends Component {
 
 	render() {
-		const { card, isDragging, connectDragSource, connectDropTarget } = this.props;
+		const { card, isDragging, connectDragSource } = this.props;
 		const opacity = isDragging ? 0 : 1;
 
-		return connectDragSource(connectDropTarget(
+		return connectDragSource(
 			<div  style={{ ...style, opacity }}>
 				{card.text}
 			</div>
-		));
+		);
 	}
 }
 
@@ -43,6 +43,7 @@ const cardSource = {
 		const dropResult = monitor.getDropResult();	
 
 		if ( dropResult && dropResult.listId !== item.listId ) {
+		
 			props.removeCard(item.index);
 		}
 	}
@@ -100,9 +101,9 @@ const cardTarget = {
 };
 
 export default flow(
-	DropTarget("CARD", cardTarget, connect => ({
-		connectDropTarget: connect.dropTarget()
-	})),
+	// DropTarget("CARD", cardTarget, connect => ({
+	// 	connectDropTarget: connect.dropTarget()
+	// })),
 	DragSource("CARD", cardSource, (connect, monitor) => ({
 		connectDragSource: connect.dragSource(),
 		isDragging: monitor.isDragging()

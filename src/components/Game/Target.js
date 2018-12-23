@@ -9,18 +9,17 @@ class Container extends Component {
 
 	constructor(props) {
 		super(props);		
-		this.state = { cards: props.list, disable : false };
+		this.state = { cards: props.list, disable : false, trig: true };
 	}
 
 
 
 	pushCard(card) {
-		if(!this.state.disable){
 		this.setState(update(this.state, {
 			cards: {
 				$push: [ card ]
 			}
-		}));}
+		}));
 	}
 
 	removeCard(index) {		
@@ -47,12 +46,21 @@ class Container extends Component {
 			}
 		}));
 	}
+	canDrop (ft)  {
+		
+			this.props.disable(this.props.id, ft);
+			//return this.props.id;
+			
+	}
 
 	
 
 	render() {
+		
 		const { cards } = this.state;
 		const { canDrop, isOver, connectDropTarget } = this.props;
+		//var canDrop = !this.state.disable ? true : false;
+		//console.log(canDrop);
 		const isActive = canDrop && isOver;
 		const style = {
 			width: "200px",
@@ -81,9 +89,17 @@ class Container extends Component {
 		//const rez = this.props.Over ? res : null;
 		//const backgroundColor = isActive ? 'lightgreen' : '#FFF';
 		var backgroundColor = isActive && (cards.length < 5)  ? 'lightgreen' : '#FFF';
-		if(cards.length === 5){backgroundColor = 'blue', this.state.disable = true}
-		console.log(this.props.Over);
-		console.log(res);
+		if(cards.length > 4){backgroundColor = 'red', this.state.disable = true}
+		if(cards.length < 2 ){backgroundColor = 'red'}
+		if( this.state.disable &&  this.state.trig){this.canDrop(false); this.setState((this.state, {trig: false}));}
+		if(cards.length < 5 && !this.state.trig){this.state.disable = false; this.canDrop(true); this.setState((this.state, {trig: true}));}
+		// if(this.state.disable && this.state.trig ){this.canDrop(); this.setState((this.state, {
+		// 	trig: false
+		// }))}
+		// console.log(this.props.Over);
+		// console.log(res);
+		// console.log(this.props.disable);
+		// console.log(this.props.disabled);
 		return connectDropTarget(
 			<div style={{...style, backgroundColor}}>
 				{cards.map((card, i) => {
@@ -95,7 +111,6 @@ class Container extends Component {
 							card={card}														
 							removeCard={this.removeCard.bind(this)}
 							moveCard={this.moveCard.bind(this)}
-							disable={this.state.disable}
 							/>
 							
 					);
@@ -109,12 +124,20 @@ class Container extends Component {
 const cardTarget = {
 	drop(props, monitor, component ) {
 		const  {id}  = props;
-		const sourceObj = monitor.getItem();		
-		if ( id !== sourceObj.listId) component.pushCard(sourceObj.card);
+		const sourceObj = monitor.getItem();	
+		if ( id !== sourceObj.listId ) component.pushCard(sourceObj.card);
 		return {
 			listId: id
 		};
+	},
+	canDrop(props){
+		if(props.drop === true){
+			return true;
+		}
+		else{return false;}
+
 	}
+
 }
 
 export default DropTarget("CARD", cardTarget, (connect, monitor) => ({

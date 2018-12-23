@@ -5,6 +5,8 @@ import Container from './Target';
 import axios from 'axios';
 import Formula from './Formula';
 import Countdown from 'react-countdown-now';
+import Modernizr from 'browsernizr';
+import TouchBackend from 'react-dnd-touch-backend';
 const math = require('mathjs');
 const MathJax = require('react-mathjax');
 
@@ -33,6 +35,9 @@ var randomElements3 = getMeRandomElements(listArray3, 2);;
 var randomElements4 = `${Math.floor(Math.random() * 8)+1}/${Math.floor(Math.random() * 8)+1}`;
 var randomElements5 = `${Math.floor(Math.random() * 4)+2}^${Math.floor(Math.random() * 4)}`;
 var randomElements6 = `${Math.floor(Math.random() * 5)}!`;
+var randomElements7 = `${Math.floor(Math.random() * 4)+1}^${Math.floor(Math.random() * 3)+1}`;
+var randomElements8 = `${Math.floor(Math.random() * 2)+1}^${Math.floor(Math.random() * 5)+1}`;
+var randomElements9 = `${Math.floor(Math.random() * 2)+1}^${Math.floor(Math.random() * 5)+1}-${Math.floor(Math.random() * 15)+1}+${randomElements3[1]}`;
 console.log(randomElements1);
 console.log(randomElements2);
 console.log(randomElements3);
@@ -46,6 +51,14 @@ randomElements1.forEach(element => {
 	randomElements1rep.push(str);
  });
 console.log(randomElements1rep);
+
+ var randomElements2rep = [];
+ randomElements3.forEach(element => {
+ 	var str = null;
+	str = element.replace("log", "ln");
+ 	randomElements2rep.push(str);
+  });
+  console.log(randomElements2rep[0]);
 
 
 
@@ -67,14 +80,31 @@ class App extends Component {
 		//this.toggle = this.toggle.bind(this);
 		this.state = {
 			Over: false,
-			touched: true
+			touched: true,
+			disable1:true,
+			disable2:true,
+			disable3:true,
+			disable4:true
 		};
+		this.getData = this.getData.bind(this);
 	}
-
+	
+	
+	getData(value, ft){
+		
+		console.log('Inside getData', value, ft);
+		switch(value){
+			case 1: this.setState((this.state, {disable1: ft})); break;
+			case 2: this.setState((this.state, {disable2: ft}));	break;
+			case 3: this.setState((this.state, {disable3: ft}));	break;
+			case 4: this.setState((this.state, {disable4: ft}));	break;
+		}
+	}	
 
 	render() {
 
 //console.log(math.eval('log(e)'));
+		
 
 		const style = {
 			display: "flex",
@@ -85,7 +115,7 @@ class App extends Component {
 		const listOne = [
 		{ id: 1, text: <Formula tex={randomElements5}/>, value: randomElements5}, 
 			{ id: 2, text: <Formula tex={randomElements4}/>, value: randomElements4 },
-			{ id: 3, text: <Formula tex={randomElements3[0]}/>, value: randomElements3[0] }
+			{ id: 3, text: <Formula tex={randomElements2rep[0]}/>, value: randomElements3[0] }
 		];
 
 		const listTwo = [
@@ -95,12 +125,14 @@ class App extends Component {
 		];
 
 		const listThree = [
-			{ id: 7, text: " 7" , value: 7},
-			{ id: 8, text: " 8" , value: 8},
-			{ id: 9, text: " 9" , value: 9}
+			{ id: 7, text: <Formula tex={randomElements8}/>, value: randomElements8 },
+			{ id: 8, text: <Formula tex={randomElements7}/>, value: randomElements7},
+			{ id: 9, text: <Formula tex={randomElements6}/>, value: randomElements6}
 		];
 		const listFour = [
-			
+			{ id: 10, text: <Formula tex={randomElements9}/>, value: randomElements9 },
+			{ id: 11, text: <Formula tex={randomElements7}/>, value: randomElements7},
+			{ id: 12, text: <Formula tex={randomElements6}/>, value: randomElements6}
 		];
 		
 	const renderer = ({ seconds, completed }) => {
@@ -139,16 +171,16 @@ const renderer2 = ({ seconds }) => {
 			}))}/> : null}
 			<div style={{...style}}>
 			<div>
-			+<Container id={1} list={listOne} Over={this.state.Over} operation={"+"}/>
+			+<Container id={1} list={listOne} Over={this.state.Over} operation={"+"} drop={this.state.disable1} disable={this.getData}/>
 			</div>
 			<div>
-			-<Container id={2} list={listTwo} Over={this.state.Over} operation={"-"}/>
+			-<Container id={2} list={listTwo} Over={this.state.Over} operation={"-"} drop={this.state.disable2} disable={this.getData}/>
 			</div>	
 			<div>
-			*<Container id={3} list={listThree} Over={this.state.Over} operation={"*"}/>
+			*<Container id={3} list={listThree} Over={this.state.Over} operation={"*"} drop={this.state.disable3} disable={this.getData}/>
 			</div>
 			<div>
-			/<Container id={4} list={listFour}  Over={this.state.Over} operation={"/"}/>
+			/<Container id={4} list={listFour}  Over={this.state.Over} operation={"/"} drop={this.state.disable4} disable={this.getData}/>
 			</div>
 			</div>
 			</div>
@@ -157,4 +189,4 @@ const renderer2 = ({ seconds }) => {
 	}
 }
 
-export default DragDropContext(HTML5Backend)(App);
+export default DragDropContext(Modernizr.touchevents ? TouchBackend : HTML5Backend)(App);
