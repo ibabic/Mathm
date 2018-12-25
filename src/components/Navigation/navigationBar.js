@@ -38,7 +38,7 @@ import {
          // console.log(' inside navigationBar ', usrName);
       return (
         <div>
-          <Navbar  color="light"  light expand="md">
+          <Navbar  color="dark"  dark expand="md">
             <NavbarBrand href="/">Mathmind </NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.props.open} navbar>

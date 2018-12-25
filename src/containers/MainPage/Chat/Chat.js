@@ -4,8 +4,8 @@ import { AddMessage } from './AddMessage';
 import classes from './Chat.css';
 
 const Chat = () => (
-  <div className={classes.container}>
-    <section className={classes.main}>
+  <div className={classes.chatWrapper}>
+    <section className={classes}>
       <MessagesList />
       <AddMessage />
     </section>

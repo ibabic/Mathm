@@ -108,8 +108,10 @@ class App extends Component {
 
 		const style = {
 			display: "flex",
-			justifyContent: "space-around",
-			paddingTop: "20px"
+			flexWrap: 'wrap',
+			justifyContent: "start",
+			paddingTop: "20px",
+			flexWrap: "wrap",
 		}
 
 		const listOne = [
@@ -138,24 +140,25 @@ class App extends Component {
 	const renderer = ({ seconds, completed }) => {
 	var divStyle = {
 		color: 'black',
+
 		backgroundImage: 'lightgreen',
 	  };
 	if(seconds < 5)
 	{ 
 	  divStyle.color = 'red';
 	}
-	return <h1 style={divStyle}>{seconds}</h1>;
+	return <h3 style={divStyle}>{seconds}</h3>;
   
 };
 
 const renderer2 = ({ seconds }) => {
 	  // Render a countdown
 	  var divStyle = {
-		color: 'green',
+		color: '#50C878',
 		backgroundImage: 'lightgreen',
 	  };
 	  
-	  return <h4 style={divStyle}>Time is up!! New game for: {seconds}</h4>;
+	  return <h3 style={divStyle}>Time is up!! New game for: {seconds}</h3>;
 	
 };
 		

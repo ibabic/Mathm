@@ -2,12 +2,16 @@
 	background-color: #292c2f;
 	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
 	box-sizing: border-box;
-	width: 100%;
 	text-align: left;
 	font: bold 16px sans-serif;
+	padding: 15px 0 10px 0;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+    text-align: center;
+	 
 
-	padding: 55px 50px;
-	margin-top:220px; 
 }
 
 .footer .left,
@@ -20,7 +24,7 @@
 /* Footer left */
 
 .footer .left{
-	width: 40%;
+	
 }
 
 /* The company logo */
@@ -134,19 +138,17 @@
 	cursor: pointer;
 	background-color:  #33383b;
 	border-radius: 2px;
-
 	font-size: 20px;
 	color: #ffffff;
 	text-align: center;
 	line-height: 35px;
-
 	margin-right: 3px;
 	margin-bottom: 5px;
 }
 
 /* If you don't want the footer to be responsive, remove these media queries */
 
-@media (max-width: 880px) {
+@media (max-width: 360px) {
 
 	.footer{
 		font: bold 14px sans-serif;

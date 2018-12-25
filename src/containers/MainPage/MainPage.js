@@ -9,8 +9,11 @@ const mainPage = (props) => {
     return (
         <div className={classes.all}>
                 <div className={classes.lefttop}><Game /></div>
-                <div className={classes.leftbottom}><Chat /></div>
+            <div>
                 <div className={classes.right}><RangList /></div>
+                <div className={classes.leftbottom}><Chat /></div>
+            </div>
+                
         </div>
     );
 }

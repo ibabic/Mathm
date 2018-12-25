@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import App from '../../../components/Game/DnD';
+import classes from './Game.css';
 
 class Game extends Component {
     render(){
@@ -13,7 +14,7 @@ class Game extends Component {
         if ( arr ) {
             usr = 
                 <form >
-                <p>Total points: {arr[2]}</p>
+                <p className={classes.points__label}>Total points: {arr[2]}</p>
                 </form>
             }
         return(

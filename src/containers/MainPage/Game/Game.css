@@ -1,0 +1,7 @@
+.points__label {
+    display: inline-block;
+    padding: 0 5px;
+    background: #222;
+    color: #fff;
+    border-radius: 5px;
+}

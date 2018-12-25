@@ -4,12 +4,16 @@ import { DragSource, DropTarget } from 'react-dnd';
 import flow from 'lodash/flow';
 
 const style = {
-	border: '1px dashed gray',
+	border: '2px solid gray',
 	padding: '0.5rem 1rem',
 	margin: '.5rem',
-	backgroundColor: '#ffffb3',
+	background: '#2193b0',  /* fallback for old browsers */
+    background: '-webkit-linear-gradient(to right, #6dd5ed, #2193b0)',  /* Chrome 10-25, Safari 5.1-6 */
+    background: 'linear-gradient(to right, #6dd5ed, #2193b0)', /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 	cursor: 'pointer',
-	hover: 'yellow'
+	hover: 'yellow',
+	color: '#fff',
+	textAlign: 'center'
 };
 
 

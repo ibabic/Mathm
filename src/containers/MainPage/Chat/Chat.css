@@ -1,4 +1,4 @@
-.container {
+/* .container {
     display: block;
     border-color: black;
     width: 700px;
@@ -6,4 +6,9 @@
 }
 .main {
     border-color: black;
+} */
+
+.chatWrapper {
+    width: 400px;
+    height: 700px;
 }

@@ -2,11 +2,18 @@
     padding: 5px 0 0 5px;
 }
 
-.div{
-    overflow:auto; 
+.messageList__wrapper{
+    background: #2193b0;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #6dd5ed, #2193b0);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #6dd5ed, #2193b0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ 
+    overflow: auto;
+    border-radius: 5px;
     height:250px;
-    width: 410px;
+    width: 400px;
     transform: rotate(180deg);
+}
+.chat__list {
+    
 }
 .rotate{
     transform: rotate(180deg);

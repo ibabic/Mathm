@@ -36,6 +36,7 @@ class RangList extends Component {
         
         return(
             <Aux>
+            <div className={classes.rangList__wrapper}>
             <Table className={classes.id} striped dark  hover>
                   <thead>
                       <tr>
@@ -52,6 +53,7 @@ class RangList extends Component {
                   </tbody>
                   </Table>
                   </div>
+            </div>
                   </Aux>);
             }
     }

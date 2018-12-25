@@ -64,8 +64,9 @@ class Container extends Component {
 		const isActive = canDrop && isOver;
 		const style = {
 			width: "200px",
-			height: "404px",
-			border: '1px dashed gray'
+			minHeight: "350px",
+			height: "auto",
+			border: '2px solid gray'
 		};
 		
 		

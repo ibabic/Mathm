@@ -1,4 +1,27 @@
-.all{
+.all {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+}
+main {
+	padding: 10px 50px;
+}
+
+.lefttop { 
+	flex-grow: 2;
+}
+.leftbottom { 
+	flex-grow: 1;
+}
+
+.right {
+	flex-grow: 1;
+  
+}
+
+
+
+/* .all{
 	display: grid;
 }
 
@@ -29,4 +52,4 @@
 		margin-bottom: 40px;
 		text-align: center;
 	}
-}
+} */
