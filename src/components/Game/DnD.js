@@ -112,6 +112,7 @@ class App extends Component {
 			justifyContent: "start",
 			paddingTop: "20px",
 			flexWrap: "wrap",
+			marginBottom: "20px"
 		}
 
 		const listOne = [

@@ -16,6 +16,7 @@
 @media (max-width: 880px) {
 
 	.div{
-		padding:0 50px 0 0;
+        padding:0 0 0 0;
+        width: 410px;
 	}
 }

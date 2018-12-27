@@ -10,16 +10,31 @@ class RangList extends Component {
     componentWillMount () {
         this.props.onRangListLoad();
     }
+
+    
     
     render(){
+        
+        
         console.log(this.props.players);
-        var arr = [];
-        for (var key in this.props.players) {
-             arr.push(this.props.players[key]);
-        }
+        var arr = [{email: "ivan@ivan.hr", username: "ivan", points: "20"},
+                    {email: "ivan@ivan.hr", username: "ivan", points: "20"},
+                    {email: "ivan@ivan.hr", username: "ivan", points: "20"},
+                    {email: "ivan@ivan.hr", username: "ivan", points: "20"},
+                    {email: "ivan@ivan.hr", username: "ivan", points: "20"},
+                    {email: "ivan@ivan.hr", username: "ivan", points: "20"},
+                    {email: "ivan@ivan.hr", username: "ivan", points: "20"},
+                    {email: "ivan@ivan.hr", username: "ivan", points: "20"},
+                    {email: "ivan@ivan.hr", username: "ivan", points: "20"},
+                    {email: "ivan@ivan.hr", username: "ivan", points: "20"},
+                    {email: "ivan@ivan.hr", username: "ivan", points: "20"},
+        ];
+        // for (var key in this.props.players) {
+        //      arr.push(this.props.players[key]);
+        // }
         console.log(arr);
         arr.sort((a,b) => b.points - a.points);
-        console.log(arr[0]);
+        console.log(arr[0].email);
         let play = null;
         if ( arr ) {
             play = arr.map( player => (
@@ -32,7 +47,8 @@ class RangList extends Component {
         } 
 
         let showPlayers = null;
-        this.props.players ? showPlayers = play : showPlayers = <Spinner />
+        //this.props.players ? showPlayers = play : showPlayers = <Spinner />
+        arr ? showPlayers = play : showPlayers = <Spinner />
         
         return(
             <Aux>
