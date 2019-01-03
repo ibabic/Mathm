@@ -91,7 +91,7 @@ class Container extends Component {
 		//const backgroundColor = isActive ? 'lightgreen' : '#FFF';
 		var backgroundColor = isActive && (cards.length < 5)  ? 'lightgreen' : '#FFF';
 		if(cards.length > 4){backgroundColor = 'red', this.state.disable = true}
-		if(cards.length < 2 ){backgroundColor = 'red'}
+		if(cards.length < 3 ){backgroundColor = 'red'}
 		if( this.state.disable &&  this.state.trig){this.canDrop(false); this.setState((this.state, {trig: false}));}
 		if(cards.length < 5 && !this.state.trig){this.state.disable = false; this.canDrop(true); this.setState((this.state, {trig: true}));}
 		// if(this.state.disable && this.state.trig ){this.canDrop(); this.setState((this.state, {
@@ -112,6 +112,8 @@ class Container extends Component {
 							card={card}														
 							removeCard={this.removeCard.bind(this)}
 							moveCard={this.moveCard.bind(this)}
+							drop={this.props.drop}
+							cardLen={cards.length}
 							/>
 							
 					);
@@ -131,14 +133,17 @@ const cardTarget = {
 			listId: id
 		};
 	},
-	canDrop(props){
+	canDrop(props, monitor){
+		const  {id}  = props;
+		const sourceObj = monitor.getItem();
+		if ( id === sourceObj.listId ){return true}
+		else{
 		if(props.drop === true){
 			return true;
 		}
-		else{return false;}
+		else{return false;}}
 
 	}
-
 }
 
 export default DropTarget("CARD", cardTarget, (connect, monitor) => ({

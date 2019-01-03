@@ -20,14 +20,14 @@ const style = {
 class Card extends Component {
 
 	render() {
-		const { card, isDragging, connectDragSource } = this.props;
+		const { card, isDragging, connectDragSource, connectDropTarget } = this.props;
 		const opacity = isDragging ? 0 : 1;
 
-		return connectDragSource(
+		return connectDragSource(connectDropTarget(
 			<div  style={{ ...style, opacity }}>
 				{card.text}
 			</div>
-		);
+		));
 	}
 }
 
@@ -44,12 +44,20 @@ const cardSource = {
 	endDrag(props, monitor) {
 		
 		const item = monitor.getItem();
-		const dropResult = monitor.getDropResult();	
+		const dropResult = monitor.getDropResult();
+		// console.log(dropResult.listId);
+		// console.log(item.listId);
+		// console.log(props.dropID);
 
 		if ( dropResult && dropResult.listId !== item.listId ) {
 		
 			props.removeCard(item.index);
 		}
+	},
+	canDrag(props){
+		if(props.cardLen < 3){
+			return false;
+		}else{return true;}
 	}
 };
 
@@ -59,7 +67,7 @@ const cardTarget = {
 		const dragIndex = monitor.getItem().index;
 		const hoverIndex = props.index;
 		const sourceListId = monitor.getItem().listId;	
-
+		
 		// Don't replace items with themselves
 		if (dragIndex === hoverIndex) {
 			return;
@@ -100,14 +108,23 @@ const cardTarget = {
 			// but it's good here for the sake of performance
 			// to avoid expensive index searches.
 			monitor.getItem().index = hoverIndex;
-		}		
-	}
+		}	
+	},
+	canDrop(props, monitor){
+	
+	// 	// if(props.drop === true){
+	// 	// 	return true;
+	// 	// }
+	// 	// else{return false;}}
+	return false;
+	 }	
+	
 };
 
 export default flow(
-	// DropTarget("CARD", cardTarget, connect => ({
-	// 	connectDropTarget: connect.dropTarget()
-	// })),
+	DropTarget("CARD", cardTarget, connect => ({
+		connectDropTarget: connect.dropTarget()
+	})),
 	DragSource("CARD", cardSource, (connect, monitor) => ({
 		connectDragSource: connect.dragSource(),
 		isDragging: monitor.isDragging()

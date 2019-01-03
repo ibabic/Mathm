@@ -29,6 +29,13 @@ var getMeRandomElements = function(sourceArray, neededElements) {
     }
     return result;
 }
+// // const lista = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+// // for(var i=0; i<100; i ++){
+// // 	var randomlista = getMeRandomElements(lista,10);
+// // 	console.log(randomlista);
+// // }
+// var randomlista = getMeRandomElements(lista,10);
+// console.log(randomlista);
 var randomElements1 = getMeRandomElements(listArray1, 5);
 var randomElements2 = getMeRandomElements(listArray2, 3);
 var randomElements3 = getMeRandomElements(listArray3, 2);;
@@ -85,6 +92,7 @@ class App extends Component {
 			disable2:true,
 			disable3:true,
 			disable4:true
+			
 		};
 		this.getData = this.getData.bind(this);
 	}
@@ -93,6 +101,8 @@ class App extends Component {
 	getData(value, ft){
 		
 		console.log('Inside getData', value, ft);
+		//var array = this.state.disabledID;
+		
 		switch(value){
 			case 1: this.setState((this.state, {disable1: ft})); break;
 			case 2: this.setState((this.state, {disable2: ft}));	break;
@@ -106,60 +116,63 @@ class App extends Component {
 //console.log(math.eval('log(e)'));
 		
 
-		const style = {
-			display: "flex",
-			flexWrap: 'wrap',
-			justifyContent: "start",
-			paddingTop: "20px",
-			flexWrap: "wrap",
-			marginBottom: "20px"
-		}
+const style = {
+	display: "flex",
+	flexWrap: 'wrap',
+	justifyContent: "start",
+	paddingTop: "20px",
+	flexWrap: "wrap",
+	marginBottom: "20px"
+}
 
 		const listOne = [
 		{ id: 1, text: <Formula tex={randomElements5}/>, value: randomElements5}, 
 			{ id: 2, text: <Formula tex={randomElements4}/>, value: randomElements4 },
-			{ id: 3, text: <Formula tex={randomElements2rep[0]}/>, value: randomElements3[0] }
+			{ id: 3, text: <Formula tex={randomElements2rep[0]}/>, value: randomElements3[0] },
+			{ id: 4, text: <Formula tex={randomElements2rep[0]}/>, value: randomElements3[0] }
 		];
 
 		const listTwo = [
-			{ id: 4, text: <Formula tex={randomElements2[0]}/>, value: randomElements2[0] },
-			{ id: 5, text: <Formula tex={randomElements1rep[0]}/>, value: randomElements1[0] },
-			{ id: 6, text: " 6", value: 6}
+			{ id: 5, text: <Formula tex={randomElements2[0]}/>, value: randomElements2[0] },
+			{ id: 6, text: <Formula tex={randomElements1rep[0]}/>, value: randomElements1[0] },
+			{ id: 7, text: " 6", value: 6},
+			{ id: 8, text: <Formula tex={randomElements2rep[0]}/>, value: randomElements3[0] }
 		];
 
 		const listThree = [
-			{ id: 7, text: <Formula tex={randomElements8}/>, value: randomElements8 },
-			{ id: 8, text: <Formula tex={randomElements7}/>, value: randomElements7},
-			{ id: 9, text: <Formula tex={randomElements6}/>, value: randomElements6}
+			{ id: 9, text: <Formula tex={randomElements8}/>, value: randomElements8 },
+			{ id: 10, text: <Formula tex={randomElements7}/>, value: randomElements7},
+			{ id: 11, text: <Formula tex={randomElements6}/>, value: randomElements6},
+			{ id: 12, text: <Formula tex={randomElements2rep[0]}/>, value: randomElements3[0] }
 		];
 		const listFour = [
-			{ id: 10, text: <Formula tex={randomElements9}/>, value: randomElements9 },
-			{ id: 11, text: <Formula tex={randomElements7}/>, value: randomElements7},
-			{ id: 12, text: <Formula tex={randomElements6}/>, value: randomElements6}
+			{ id: 12, text: <Formula tex={randomElements9}/>, value: randomElements9 },
+			{ id: 14, text: <Formula tex={randomElements7}/>, value: randomElements7},
+			{ id: 15, text: <Formula tex={randomElements6}/>, value: randomElements6},
+			{ id: 16, text: <Formula tex={randomElements2rep[0]}/>, value: randomElements3[0] }
 		];
 		
 	const renderer = ({ seconds, completed }) => {
 	var divStyle = {
 		color: 'black',
-
 		backgroundImage: 'lightgreen',
 	  };
 	if(seconds < 5)
 	{ 
 	  divStyle.color = 'red';
 	}
-	return <h3 style={divStyle}>{seconds}</h3>;
+	return <h1 style={divStyle}>{seconds}</h1>;
   
 };
 
 const renderer2 = ({ seconds }) => {
 	  // Render a countdown
 	  var divStyle = {
-		color: '#50C878',
+		color: 'green',
 		backgroundImage: 'lightgreen',
 	  };
 	  
-	  return <h3 style={divStyle}>Time is up!! New game for: {seconds}</h3>;
+	  return <h4 style={divStyle}>Time is up!! New game for: {seconds}</h4>;
 	
 };
 		
@@ -175,16 +188,16 @@ const renderer2 = ({ seconds }) => {
 			}))}/> : null}
 			<div style={{...style}}>
 			<div>
-			+<Container id={1} list={listOne} Over={this.state.Over} operation={"+"} drop={this.state.disable1} disable={this.getData}/>
+			+<Container id={1} list={listOne} Over={this.state.Over} operation={"+"} drop={this.state.disable1} disable={this.getData} disabledID={this.state.disabledID}/>
 			</div>
 			<div>
-			-<Container id={2} list={listTwo} Over={this.state.Over} operation={"-"} drop={this.state.disable2} disable={this.getData}/>
+			-<Container id={2} list={listTwo} Over={this.state.Over} operation={"-"} drop={this.state.disable2} disable={this.getData} disabledID={this.state.disabledID}/>
 			</div>	
 			<div>
-			*<Container id={3} list={listThree} Over={this.state.Over} operation={"*"} drop={this.state.disable3} disable={this.getData}/>
+			*<Container id={3} list={listThree} Over={this.state.Over} operation={"*"} drop={this.state.disable3} disable={this.getData} disabledID={this.state.disabledID}/>
 			</div>
 			<div>
-			/<Container id={4} list={listFour}  Over={this.state.Over} operation={"/"} drop={this.state.disable4} disable={this.getData}/>
+			/<Container id={4} list={listFour}  Over={this.state.Over} operation={"/"} drop={this.state.disable4} disable={this.getData} disabledID={this.state.disabledID}/>
 			</div>
 			</div>
 			</div>
