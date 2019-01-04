@@ -74,13 +74,16 @@ class Register extends Component {
     }
     
     inputChangedHandler = ( event, controlName ) => {
-        const updatedControls = updatedObject( this.state.elements, {
-          [controlName]: updatedObject( this.state.elements[controlName], {
-              value: event.target.value,
-              valid: checkValidity( event.target.value, this.state.elements[controlName].validation ),
-              touched: true
-          } )
-      } );
+       
+            const updatedControls = updatedObject( this.state.elements, {
+                [controlName]: updatedObject( this.state.elements[controlName], {
+                    value: event.target.value,
+                    valid: checkValidity( event.target.value, this.state.elements[controlName].validation ),
+                    touched: true
+                } )
+            } );
+        
+      
       
       let formIsValid = true;
               for (let controlName in updatedControls) {
@@ -113,14 +116,16 @@ class Register extends Component {
         for (var key in this.props.players) {
              arr.push(this.props.players[key]);
         }
+    var usernameExist = (!this.search(this.state.elements.username.value, arr));
+    console.log('UsernameExist', usernameExist);    
     let usErr = null;
     this.props.error ? usErr=<p >This email already exists</p> : usErr=null;
-    let usName = <Input value={this.state.elements.username.value} invalid onChange={(event) => this.inputChangedHandler(event, 'username')}/>;
-    this.state.elements.username.valid && (!this.search(this.state.elements.username.value, arr)) ? usName=<Input value={this.state.elements.username.value} valid onChange={(event) => this.inputChangedHandler(event, 'username')}/> : usName
+    let usName = <Input value={this.state.elements.username.value} invalid onChange={(event) => this.inputChangedHandler(event, 'username', usernameExist)}/>;
+    this.state.elements.username.valid && usernameExist ? usName=<Input value={this.state.elements.username.value} valid onChange={(event) => this.inputChangedHandler(event, 'username')}/> : usName
     
     let usFed = null;
     if(this.state.elements.username.touched)
-    this.state.elements.username.valid && (!this.search(this.state.elements.username.value, arr)) ? usFed=<FormFeedback valid>Sweet! that name is available</FormFeedback> : usFed=<FormFeedback>Oh noes! that name is already taken</FormFeedback>
+    this.state.elements.username.valid && usernameExist ? usFed=<FormFeedback valid>Sweet! that name is available</FormFeedback> : usFed=<FormFeedback>Oh noes! that name is already taken</FormFeedback>
 
     let reg = (
         <Form>
@@ -156,7 +161,7 @@ class Register extends Component {
         </FormGroup>
         <form className={classes.divStyle} onSubmit={this.submitHandler}>
         {usErr}
-        <Button  disabled={!this.state.formIsValid} btnType={this.state.formIsValid ? 'Success' : 'Danger' }  tag={Link} to="/">Register</Button>
+        <Button  disabled={(!this.state.formIsValid || !usernameExist)} btnType={(this.state.formIsValid && usernameExist) ? 'Success' : 'Danger' }  tag={Link} to="/">Register</Button>
         </form>
     </Form>
     );

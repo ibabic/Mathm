@@ -50,6 +50,7 @@ console.log(randomElements2);
 console.log(randomElements3);
 console.log(randomElements4);
 console.log(randomElements5);
+console.log(randomElements6);
 
 var randomElements1rep = [];
 randomElements1.forEach(element => {
@@ -91,34 +92,55 @@ class App extends Component {
 			disable1:true,
 			disable2:true,
 			disable3:true,
-			disable4:true
-			
+			disable4:true,
+			value1: null,
+			value2: null,
+			value3: null,
+			value4: null,
 		};
 		this.getData = this.getData.bind(this);
+		this.getValue = this.getValue.bind(this);
 	}
 	
 	
 	getData(value, ft){
-		
-		console.log('Inside getData', value, ft);
-		//var array = this.state.disabledID;
-		
 		switch(value){
-			case 1: this.setState((this.state, {disable1: ft})); break;
+			case 1: this.setState((this.state, {disable1: ft})); 	break;
 			case 2: this.setState((this.state, {disable2: ft}));	break;
 			case 3: this.setState((this.state, {disable3: ft}));	break;
 			case 4: this.setState((this.state, {disable4: ft}));	break;
+		}
+	}	
+	getValue(value, ft){
+		console.log('Inside getValue',value,ft);
+		switch(value){
+			case 1: this.setState((this.state, {value1: ft})); 	break;
+			case 2: this.setState((this.state, {value2: ft}));	break;
+			case 3: this.setState((this.state, {value3: ft}));	break;
+			case 4: this.setState((this.state, {value4: ft}));	break;
 		}
 	}	
 
 	render() {
 
 //console.log(math.eval('log(e)'));
+		console.log(this.state.value1);
+		console.log(this.state.value2);
+		console.log(this.state.value3);
+		console.log(this.state.value4);
+		if(this.state.Over){
+		var resultArray = [];
+		resultArray.push(this.state.value1, this.state.value2, this.state.value3, this.state.value4);
+		console.log('resultArray', resultArray);
+		resultArray.sort( function(a,b) { return b - a; } );
+		console.log('resultArraysort', resultArray);
+		var result = resultArray[0] - resultArray [3];
+		console.log(result);
+		}
 		
 
 const style = {
 	display: "flex",
-	flexWrap: 'wrap',
 	justifyContent: "start",
 	paddingTop: "20px",
 	flexWrap: "wrap",
@@ -188,18 +210,20 @@ const renderer2 = ({ seconds }) => {
 			}))}/> : null}
 			<div style={{...style}}>
 			<div>
-			+<Container id={1} list={listOne} Over={this.state.Over} operation={"+"} drop={this.state.disable1} disable={this.getData} disabledID={this.state.disabledID}/>
+			+<Container id={1} list={listOne} Over={this.state.Over} operation={"+"} drop={this.state.disable1} disable={this.getData} disabledID={this.state.disabledID} value={this.getValue}/>
 			</div>
 			<div>
-			-<Container id={2} list={listTwo} Over={this.state.Over} operation={"-"} drop={this.state.disable2} disable={this.getData} disabledID={this.state.disabledID}/>
+			-<Container id={2} list={listTwo} Over={this.state.Over} operation={"-"} drop={this.state.disable2} disable={this.getData} disabledID={this.state.disabledID} value={this.getValue}/>
 			</div>	
 			<div>
-			*<Container id={3} list={listThree} Over={this.state.Over} operation={"*"} drop={this.state.disable3} disable={this.getData} disabledID={this.state.disabledID}/>
+			*<Container id={3} list={listThree} Over={this.state.Over} operation={"*"} drop={this.state.disable3} disable={this.getData} disabledID={this.state.disabledID} value={this.getValue}/>
 			</div>
 			<div>
-			/<Container id={4} list={listFour}  Over={this.state.Over} operation={"/"} drop={this.state.disable4} disable={this.getData} disabledID={this.state.disabledID}/>
+			/<Container id={4} list={listFour}  Over={this.state.Over} operation={"/"} drop={this.state.disable4} disable={this.getData} disabledID={this.state.disabledID} value={this.getValue}/>
 			</div>
+			
 			</div>
+			<div>{this.state.Over ? `you got ${result} points` : null}</div>
 			</div>
 			
 		);

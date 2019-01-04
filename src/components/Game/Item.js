@@ -13,7 +13,8 @@ const style = {
 	cursor: 'pointer',
 	hover: 'yellow',
 	color: '#fff',
-	textAlign: 'center'
+	textAlign: 'center',
+	height: '75px'
 };
 
 
@@ -110,12 +111,7 @@ const cardTarget = {
 			monitor.getItem().index = hoverIndex;
 		}	
 	},
-	canDrop(props, monitor){
-	
-	// 	// if(props.drop === true){
-	// 	// 	return true;
-	// 	// }
-	// 	// else{return false;}}
+	canDrop(){
 	return false;
 	 }	
 	

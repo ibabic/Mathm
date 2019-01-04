@@ -9,7 +9,7 @@ class Container extends Component {
 
 	constructor(props) {
 		super(props);		
-		this.state = { cards: props.list, disable : false, trig: true };
+		this.state = { cards: props.list, disable : false, trig: true, trigValue: true };
 	}
 
 
@@ -47,11 +47,13 @@ class Container extends Component {
 		}));
 	}
 	canDrop (ft)  {
-		
 			this.props.disable(this.props.id, ft);
-			//return this.props.id;
-			
 	}
+	returnResult (res)  {
+		console.log(this.props.id, res);
+		this.props.value(this.props.id, res);
+}
+
 
 	
 
@@ -65,7 +67,7 @@ class Container extends Component {
 		const style = {
 			width: "200px",
 			minHeight: "350px",
-			height: "auto",
+			height: "500px",
 			border: '2px solid gray'
 		};
 		
@@ -94,13 +96,13 @@ class Container extends Component {
 		if(cards.length < 3 ){backgroundColor = 'red'}
 		if( this.state.disable &&  this.state.trig){this.canDrop(false); this.setState((this.state, {trig: false}));}
 		if(cards.length < 5 && !this.state.trig){this.state.disable = false; this.canDrop(true); this.setState((this.state, {trig: true}));}
-		// if(this.state.disable && this.state.trig ){this.canDrop(); this.setState((this.state, {
-		// 	trig: false
-		// }))}
-		// console.log(this.props.Over);
-		// console.log(res);
-		// console.log(this.props.disable);
-		// console.log(this.props.disabled);
+		if(this.props.Over && this.state.trigValue){
+			this.returnResult(res);
+			this.state.trigValue = false;
+			// console.log('result of container', res);
+		}
+		if(!this.props.Over){this.state.trigValue = true;}
+
 		return connectDropTarget(
 			<div style={{...style, backgroundColor}}>
 				{cards.map((card, i) => {
