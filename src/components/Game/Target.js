@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import update from 'immutability-helper';
 import Card from './Item';
 import { DropTarget } from 'react-dnd';
-import { Z_PARTIAL_FLUSH } from 'zlib';
+import classes from './Target.css';
 const math = require('mathjs');
 
 class Container extends Component {
@@ -11,8 +11,6 @@ class Container extends Component {
 		super(props);		
 		this.state = { cards: props.list, disable : false, trig: true, trigValue: true };
 	}
-
-
 
 	pushCard(card) {
 		this.setState(update(this.state, {
@@ -50,19 +48,12 @@ class Container extends Component {
 			this.props.disable(this.props.id, ft);
 	}
 	returnResult (res)  {
-		console.log(this.props.id, res);
 		this.props.value(this.props.id, res);
 }
 
-
-	
-
 	render() {
-		
 		const { cards } = this.state;
 		const { canDrop, isOver, connectDropTarget } = this.props;
-		//var canDrop = !this.state.disable ? true : false;
-		//console.log(canDrop);
 		const isActive = canDrop && isOver;
 		const style = {
 			width: "200px",
@@ -70,36 +61,40 @@ class Container extends Component {
 			height: "500px",
 			border: '2px solid gray'
 		};
+
+		const style2 = {
+				marginTop: "50px",
+			  position:"relative",
+			  textAlign : "center",
+			  color: "#00008B",
+			  fontSize: "150%",
+		};
 		
 		
 		var res = null;
-		//console.log(cards);
 		if(cards.length !== 0){
 			res = math.eval(cards[0].value);
 			var cardsExOne = cards.slice().splice(1,cards.length -1);
-			//console.log(cardsExOne);
-			cardsExOne.forEach(card => {
-					//console.log(res);
+			cardsExOne.forEach(card => {		
 					switch(this.props.operation){
 						case "+" : return res = res + math.eval(card.value);
 						case "-" : return res = res - math.eval(card.value);
 						case "*" : return res = res * math.eval(card.value);
 						case "/" : return res = res / math.eval(card.value);
+						default: return res;
 					}
 				}); 
 		}
-
-		//const rez = this.props.Over ? res : null;
-		//const backgroundColor = isActive ? 'lightgreen' : '#FFF';
+		var visibility = (this.props.time < 2) ? 'hidden' : 'visible';
 		var backgroundColor = isActive && (cards.length < 5)  ? 'lightgreen' : '#FFF';
 		if(cards.length > 4){backgroundColor = 'red', this.state.disable = true}
 		if(cards.length < 3 ){backgroundColor = 'red'}
 		if( this.state.disable &&  this.state.trig){this.canDrop(false); this.setState((this.state, {trig: false}));}
 		if(cards.length < 5 && !this.state.trig){this.state.disable = false; this.canDrop(true); this.setState((this.state, {trig: true}));}
 		if(this.props.Over && this.state.trigValue){
-			this.returnResult(res);
+			this.returnResult(res.toFixed(3));
 			this.state.trigValue = false;
-			// console.log('result of container', res);
+			this.canDrop(true);
 		}
 		if(!this.props.Over){this.state.trigValue = true;}
 
@@ -116,11 +111,12 @@ class Container extends Component {
 							moveCard={this.moveCard.bind(this)}
 							drop={this.props.drop}
 							cardLen={cards.length}
+							over={this.props.Over}
 							/>
 							
 					);
 				})}
-				<p>{this.props.Over ? res : null}</p>
+				<p style={{...style2, visibility}}>{this.props.Over ? res.toFixed(3) : null}</p>
 			</div>
 		);
   }

@@ -9,7 +9,7 @@ class Game extends Component {
         for (var key in this.props.user) {
              arr.push(this.props.user[key]);
         }
-        console.log(arr);
+        //console.log(arr);
         let usr = null;
         if ( arr ) {
             usr = 
@@ -28,7 +28,7 @@ class Game extends Component {
 
 const mapStateToProps = state => {
     return {
-        user: state.game.user
+        user: state.game.user,
     };
 }
 

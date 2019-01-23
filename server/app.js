@@ -16,7 +16,7 @@ wss.on('connection', (ws) => {
   let index = 0;
   ws.on('message', (message) => {
     const data = JSON.parse(message);
-    console.log(message);
+    //console.log(message);
     switch (data.type) {
       case 'ADD_MESSAGE':
         broadcast({

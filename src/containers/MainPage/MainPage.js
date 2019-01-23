@@ -1,5 +1,4 @@
 import React from 'react';
-import Aux from '../../hoc/Auxx/Auxx';
 import classes from './MainPage.css';
 import Game from './Game/Game';
 import RangList from './RangList/RangList';

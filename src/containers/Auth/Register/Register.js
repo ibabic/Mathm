@@ -7,7 +7,7 @@ import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux'; 
 import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
-import { Redirect, withRouter  } from 'react-router-dom';
+import { withRouter  } from 'react-router-dom';
 import classes from './Register.css';
 
 

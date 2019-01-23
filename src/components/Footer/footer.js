@@ -11,11 +11,11 @@ const footer = (props) => (
         <h3>Mathmind<span>logo</span></h3>
 
         <p className={classes.links}>
-            <a href="#">Home</a>
+            <a href="/">Home</a>
             -  
             <a href="/about">About</a>
             -    
-            <a href="#">Contact</a>
+            <a href="/contact">Contact</a>
         </p>
 
         <p className={classes.companyname}>FESB &copy; 2018</p>

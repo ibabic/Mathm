@@ -1,6 +1,6 @@
 import React from 'react';
 import {  Modal, ModalBody, Form } from 'reactstrap';
-import { Redirect, withRouter  } from 'react-router-dom';
+import { withRouter  } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
 

@@ -78,6 +78,16 @@ UserSchema.methods.generateAuthToken = function () {
     })
   };
 
+  UserSchema.methods.updatePoints = function (points2) {
+    var user = this;
+
+   return user.update({
+      $inc: {
+        points: points2
+      }
+    })
+  };
+
   UserSchema.statics.findByToken = function (token) {
     var User = this;
     var decoded;

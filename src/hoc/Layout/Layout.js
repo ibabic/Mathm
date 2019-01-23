@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Aux from '../Auxx/Auxx';
-import classes from './Layout.css';
 import NavBar from '../../components/Navigation/navigationBar';
 import Footer from '../../components/Footer/footer';
 import * as actions from '../../store/actions/index';
@@ -13,7 +12,7 @@ class Layout extends Component {
         return (
             <Aux>
                 <NavBar isAuth={this.props.isAuthenticated}/>
-                <main onClick={ this.props.open ? this.props.onToggle : null} className={classes.Content}>
+                <main onClick={ this.props.open ? this.props.onToggle : null}>
                     {this.props.children}
                 </main>
                 <Footer/>

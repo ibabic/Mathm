@@ -6,7 +6,7 @@ import classes from './MessagesList.css';
 const MessagesList = ({ messages }) => (
   <div>
     <p className={classes.chat__title}>
-      Game Chat <i class="fa fa-comments" aria-hidden="true"></i>
+      Game Chat <i className="fa fa-comments" aria-hidden="true"></i>
     </p>
     
     <div className={classes.messageList__wrapper}>

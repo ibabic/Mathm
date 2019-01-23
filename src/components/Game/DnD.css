@@ -9,10 +9,7 @@
     margin: auto;
   }
   
-  /* @keyframes App-logo-spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  } */
+  
   
   .appcontainer {
     display: flex;
@@ -40,5 +37,18 @@
     max-height: 20px;
     border: 1px solid grey;
   }
+
+  .operator {
+      position: relative;
+      background-color: #808080;
+      text-align: center;
+      color: white;
+    } 
   
+ .zindex{
+   z-index: 1;
+   font-size: 150%;
   
+ }
+
+ 

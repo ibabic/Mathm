@@ -5,7 +5,8 @@ export {
     logout,
     authCheckState,
     modalOff,
-    toggle
+    toggle,
+    ChecPointskState
 } from './auth';
 
 export {

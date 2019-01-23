@@ -1,15 +1,6 @@
 import axios from 'axios';
-import * as firebase  from 'firebase';
 import * as actionTypes from './actionTypes';
 import { explode } from '../../index';
-
-// var config = {
-//     databaseURL: "https://mathmind-b6baf.firebaseio.com/"
-// }
-
-// firebase.initializeApp(config);
-// const db = firebase.database();
-// const dbRef =db.ref().child('players');
 
 export const authStart = () => {
     return {
@@ -104,6 +95,27 @@ export const login = (email, password) => {
           }); 
     };
 };
+
+export const ChecPointskState = () => {
+    return dispatch => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+           console.log('Can not get points');}
+         else {
+                const userId = localStorage.getItem('userId');
+                const authData = {
+                    token: token,
+                    userId: userId
+                };
+                axios.post('http://localhost:3000/users/getpoints', authData)
+                    .then(response => {
+                        dispatch(userData(response.data));
+                    }).catch(err => {
+                        console.log('Error while getting points');
+                }); 
+            }   
+    };
+}
 
 export const authCheckState = () => {
     return dispatch => {

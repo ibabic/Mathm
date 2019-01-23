@@ -4,6 +4,7 @@ import { DragSource, DropTarget } from 'react-dnd';
 import flow from 'lodash/flow';
 
 const style = {
+	position: 'relative',
 	border: '2px solid gray',
 	padding: '0.5rem 1rem',
 	margin: '.5rem',
@@ -56,9 +57,14 @@ const cardSource = {
 		}
 	},
 	canDrag(props){
-		if(props.cardLen < 3){
+		if(!props.over){
+			if(props.cardLen < 3){
+				return false;
+			}else{return true;}
+		}
+		else {
 			return false;
-		}else{return true;}
+		}
 	}
 };
 

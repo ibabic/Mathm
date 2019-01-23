@@ -1,0 +1,61 @@
+.animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #555;
+    opacity: 1;
+    text-align: center;
+    -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+    animation-name: example;
+    animation-duration: 1s;
+}
+
+.animation_label {
+    color: #fff;
+    font-weight: 600;
+    margin-top: 200px;
+}
+
+@keyframes example {
+    100%   {opacity: 0; width: 0%}
+    0% {opacity: 1; width: 100%}
+  }
+
+
+@-webkit-keyframes fadeIn { 
+  
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+  
+  
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+  .targetResult {
+  margin-top: 50px;
+  position:relative;
+  text-align: center;
+  color: #00008B;
+  font-size: 150%; 
+  -webkit-animation-name: fadeIn; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 5s infinite; /* Safari 4.0 - 8.0 */
+    animation-name: fadeIn;
+    animation-duration: 5s infinite;
+    
+} 
+

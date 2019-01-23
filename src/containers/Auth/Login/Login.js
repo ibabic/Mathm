@@ -7,9 +7,9 @@ import Button from '../../../components/UI/Button/Button';
 import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux'; 
 import Spinner from '../../../components/UI/Spinner/Spinner';
-import { Redirect, withRouter  } from 'react-router-dom';
+import { withRouter  } from 'react-router-dom';
 import classes from './Login.css';
-import { explode } from '../../../index';
+
 
 class Login extends Component {
   state = {
